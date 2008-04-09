@@ -1,0 +1,32 @@
+<?xml version="1.0"?>
+<project name="Colorblind" default="build" basedir=".">
+	<description>A pure managed mode OS</description>
+	<property name="debug" value="true" overwrite="false" />
+	<property name="arch" value="IA32" overwrite="false" />
+	<target name="clean" description="Clean build directory">
+		<delete failonerror="false">
+			<fileset>
+				<include name="Obj\*.dll" />
+				<include name="Obj\*.exe" />
+				<include name="Obj\*.pdb" />
+			</fileset>
+		</delete>
+	</target>
+	
+	<target name="build" description="Build Colorblind">
+		<mkdir dir="Obj" />
+		<csc target="library" output="Obj\Colorblind.Common.PointerTypes.dll" debug="${debug}" unsafe="true">
+			<sources>
+				<include name="Common\PointerTypes.cs" />
+			</sources>
+		</csc>
+		<ncc target="library" output="Obj\Colorblind.Common.Pointers.dll" debug="${debug}">
+			<sources>
+				<include name="Common\Pointers.n" />
+			</sources>
+			<references>
+				<include name="Obj\Colorblind.Common.PointerTypes.dll" />
+			</references>
+		</ncc>
+	</target>
+</project>
