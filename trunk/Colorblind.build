@@ -13,8 +13,12 @@
 		</delete>
 	</target>
 	
-	<target name="build" description="Build Colorblind">
-		<mkdir dir="Obj" />
+	<mkdir dir="Obj" />
+	<target name="build" description="Build Colorblind" depends="Common,Services">
+		<call target="Arch.${arch}" />
+	</target>
+	
+	<target name="Common">
 		<csc target="library" output="Obj\Colorblind.Common.PointerTypes.dll" debug="${debug}" unsafe="true">
 			<sources>
 				<include name="Common\PointerTypes.cs" />
@@ -28,5 +32,11 @@
 				<include name="Obj\Colorblind.Common.PointerTypes.dll" />
 			</references>
 		</ncc>
+	</target>
+	
+	<target name="Arch.IA32">
+	</target>
+	
+	<target name="Services">
 	</target>
 </project>
