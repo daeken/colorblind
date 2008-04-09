@@ -1,0 +1,34 @@
+using System;
+using Colorblind.Common.PointerTypes;
+
+namespace Colorblind.Common.Pointers {
+	public class Pointer [T]
+	where T : struct {
+		public mutable Ptr : IPointer [T];
+		public Value : T {
+			get {
+				Ptr.Value
+			}
+			
+			set {
+				Ptr.Value = value
+			}
+		}
+		
+		public this(addr : ulong = 0UL) {
+			mutable foo : T;
+			Ptr = (match(foo) {
+				| _ is System.Byte => BytePointer() : object
+				| _ is System.UInt16 => UShortPointer() : object
+				| _ is System.UInt32 => UIntPointer() : object
+				| _ is System.UInt64 => ULongPointer() : object
+				| _ => null
+			} :> IPointer [T]);
+			Ptr.Addr = addr;
+		}
+		
+		public this(addr : uint = 0U) {
+			this(addr :> ulong);
+		}
+	}
+}
