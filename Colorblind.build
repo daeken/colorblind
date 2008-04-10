@@ -16,6 +16,22 @@
 	<mkdir dir="Obj" />
 	<target name="build" description="Build Colorblind" depends="Common,Services">
 		<call target="Arch.${arch}" />
+		<ncc target="exe" output="Obj\PointerTest32.exe" debug="${debug}">
+			<sources>
+				<include name="Apps\PointerTest32.n" />
+			</sources>
+			<references>
+				<include name="Obj\Colorblind.Common.Pointers.dll" />
+			</references>
+		</ncc>
+		<ncc target="exe" output="Obj\PointerTest64.exe" debug="${debug}">
+			<sources>
+				<include name="Apps\PointerTest64.n" />
+			</sources>
+			<references>
+				<include name="Obj\Colorblind.Common.Pointers.dll" />
+			</references>
+		</ncc>
 	</target>
 	
 	<target name="Common">
