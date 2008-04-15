@@ -9,29 +9,15 @@
 				<include name="Obj\*.dll" />
 				<include name="Obj\*.exe" />
 				<include name="Obj\*.pdb" />
+				<include name="Obj\*.s" />
+				<include name="Obj\*.kernel" />
 			</fileset>
 		</delete>
 	</target>
 	
 	<mkdir dir="Obj" />
-	<target name="build" description="Build Colorblind" depends="Common,Services">
+	<target name="build" description="Build Colorblind" depends="Common,Services,Apps">
 		<call target="Arch.${arch}" />
-		<ncc target="exe" output="Obj\PointerTest32.exe" debug="${debug}">
-			<sources>
-				<include name="Apps\PointerTest32.n" />
-			</sources>
-			<references>
-				<include name="Obj\Colorblind.Common.Pointers.dll" />
-			</references>
-		</ncc>
-		<ncc target="exe" output="Obj\PointerTest64.exe" debug="${debug}">
-			<sources>
-				<include name="Apps\PointerTest64.n" />
-			</sources>
-			<references>
-				<include name="Obj\Colorblind.Common.Pointers.dll" />
-			</references>
-		</ncc>
 	</target>
 	
 	<target name="Common">
@@ -45,14 +31,26 @@
 				<include name="Common\Pointers.n" />
 			</sources>
 			<references>
+				<lib>
+					<include name="C:\Program Files\Nemerle" />
+				</lib>
+				<include name="Nemerle.Compiler.dll" />
 				<include name="Obj\Colorblind.Common.PointerTypes.dll" />
 			</references>
 		</ncc>
 	</target>
 	
 	<target name="Arch.IA32">
+		<csc target="exe" output="Obj\Colorblind.exe" unsafe="true">
+			<sources>
+				<include name="Arch\IA32\Test.cs" />
+			</sources>
+		</csc>
 	</target>
 	
 	<target name="Services">
+	</target>
+	
+	<target name="Apps">
 	</target>
 </project>
