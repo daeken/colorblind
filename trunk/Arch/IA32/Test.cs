@@ -14,11 +14,11 @@ class Test {
 	unsafe static void NewLine() {
 		X = 0;
 		if(++Y == 25) {
-			int off = 12 * 80 * 2;
+			int off = 80 * 2;
 			Memcpy((byte *) 0xB8000U + off, (byte *) 0xB8000U, (80 * 25 * 2) - off);
-			Memset((byte *) 0xB87D0U - off, 0, off);
-			Y = 12;
+			Y = 24;
 		}
+		Memset((byte *) 0xB8000U + (Y * 80 * 2), 0, 80 * 2);
 	}
 	
 	unsafe static void PutChar(char ch) {
@@ -33,7 +33,7 @@ class Test {
 	unsafe static public void Main() {
 		Memset((byte *) 0xB8000U, 0, 80*25*2);
 		while(true) {
-			for(int i = 0; i < 50; ++i) {
+			for(int i = 0; i < 160; ++i) {
 				for(int j = 0; j < i; ++j)
 					PutChar(' ');
 				PutChar('C');
